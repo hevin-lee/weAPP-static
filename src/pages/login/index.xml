@@ -1,0 +1,3 @@
+<view class="container">
+	 <loading hidden="{{ !loading }}">加载中...</loading>
+</view>

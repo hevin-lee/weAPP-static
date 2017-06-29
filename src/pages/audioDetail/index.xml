@@ -1,0 +1,63 @@
+<!--音频详情-->
+<view class="container " style="background:url(/images/background@2x.png) no-repeat center center;background-size:cover;">
+	<view class="video-head">
+		<view class="audioDetail-photo">
+			<view class="audioDetail-photo-l">
+				<view class="audioDetail-photo-l-img" >
+					<image src="/images/pic_-placeholder@2x.png" wx:if="{{user.avatar == '' || user.avatar == null}}" style="width:50rpx;height:50rpx;"></image>
+					<image  src="{{user.avatar}}" wx:else></image>
+				</view>
+				<view class="audioDetail-info">
+					<text class="audioDetail-photo-l-name">{{user.nickname}}</text>
+					<text class="audioDetail-photo-l-fans">{{viewNum}}人</text>
+				</view>
+				<!-- 主播ID：{{user.userId}} -->
+			</view>
+		</view>
+		<view class="audioDetail-state">
+			<view class="audioDetail-state-wrap">
+				<view class="audioDetail-gold">
+					<text class="audioDetail-gold-l">金币：{{user.goldNum}}</text>
+				</view>
+			</view>
+			<view class="audioDetail-state-wrap-m" >
+				<text class="audioDetail-id">主播ID：{{user.anchorId}}</text>
+			</view>
+			<view class="audioDetail-state-wrap">
+				<view class="audioDetail-time">
+					<view class="audioDetail-time-icon"></view>
+					<text class="audioDetail-time-txt">{{currentTimeText}}</text>
+				</view>
+			</view>
+		</view>
+	</view>
+
+	<!-- 音频 start -->
+	<view class="audioBox">
+		<audio src="{{audio.url}}" id="myAudio" class="audio-ele" controls  bindtimeupdate="audioUpdate" binderror="audioError" style="display:none;"></audio>
+		<view class="cover" style='background-image: url({{audio.surfaceImg}});' >
+			<!-- <image src="saudioData.albumCoverUrl" alt=""></image>
+		-->
+		</view>
+		<view class="progress-bar" bindtouchstart="ontouchStart" bindouchmove="ontouchMove" bindtouchend="ontouchEnd">
+			<view class="total-bar"></view>
+			<view class="curr-bar"  style="width:{{barWidth}}px"></view>
+			<view class="handle" style="left:{{offsetLeft}}px"></view>
+		</view>
+		<view class="audio-time">
+			<text>{{currentTimeText}}</text>
+			<text>{{durationTimeText}}</text>
+		</view>
+		<view class="audioPlay">
+			<view class="audio-play" wx:if="{{play}}"  bindtap="audioPlay">
+				<image src="/images/play.png" alt=""></image>
+			</view>
+			<view href="javascript:;" class="audio-pause" wx:if="{{pause}}"  bindtap="audioPause">
+				<image src="/images/pause.png" alt=""></image>
+			</view>
+
+		</view>
+	</view>
+
+	<loading hidden="{{ !loading}}">加载中...</loading>
+</view>

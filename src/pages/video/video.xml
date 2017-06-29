@@ -1,0 +1,62 @@
+<import src="../components/list-loading/list-loading"/>
+<view class="container mylive">
+	<template name="liveitem">
+		<view class="mylive-item">
+			<view class="live-info  " >
+				<view class="live-info-avatar">
+					<view class="avatar">
+						<image  style="width:80rpx;height:80rpx"  src="{{item.headImg}}"  ></image>
+					</view>
+					<view class="icon-sex {{item.sex == 1 ? 'icon-sex-ms' : ''}}"></view>
+				</view>
+				<view class="live-info-content">
+					<view class="live-info-title" >
+						<view   class="h2">
+							<view class="user-icon-level user-icon-level1" wx:if="{{item.level  >= 0 && item.level <= 30}}">{{item.level}}</view>
+							<view class="user-icon-level user-icon-level2" wx:elif="{{item.level >= 31 && item.level <= 70}}">{{item.level}}</view>
+							<view class="user-icon-level user-icon-level3" wx:elif="{{item.level >= 71 && item.level <= 90}}">{{item.level}}</view>
+							<view class="user-icon-level user-icon-level4" wx:else >{{item.level}}</view>
+							<!-- <view class="user-icon-level user-icon-level">{{item.level}}</view> -->
+							<text>{{item.nickName}}</text>
+						</view>
+						<view class="live-info-positon">
+							<view class="icon-position"></view>
+							<text  >{{item.location == '' ? '未知' : item.location}}</text>
+						</view>
+					</view>
+					<view class="live-info-after"  >
+						<view class="live-info-afterInner">
+							<view class="live-info-item">
+								<view class="icon-user"></view>
+								<text>{{item.viewNum}}人</text>
+							</view>
+
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="mylive-img">
+				<navigator url="../videoDetail/index?vodId={{item.vodId}}&userId={{item.userId}}"  >
+					<view class="mylive-info mylive-title  " >{{item.title}}</view>
+					<image   mode="aspectFit" wx:if="{{item.surfaceImg ==''}}" src="../../images/pic_home_morenfengmian@2x.png" ></image>
+					<image style="height:750rpx;"   mode="aspectFit" wx:else src="{{item.surfaceImg}}"  binderror="handleImgError"   data-errorimg="{{index}}"></image>
+					<view class="mylive-liveing" wx:if="{{item.type == 0}}">
+						<view></view>
+						<text>直播中</text>
+					</view>
+				</navigator>
+			</view>
+		</view>
+	</template>
+	<scroll-view scroll-y="true" class="list" bindscrolltolower="handleLoadMore">
+		<template is="liveitem" data="{{item , index}}" wx:key="index" wx:for="{{movies}}"></template>
+		<view class="nothing" wx:if="{{movies.length == 0 }}">
+			<view>
+				<image src="/images/pic_kongbai_2.png" ></image>
+				<view>暂无数据</view>
+			</view>
+		</view>
+		<!-- <template is="list-loading" data="{{ hasMore }}"></template> -->
+	</scroll-view>
+	<loading hidden="{{ !loading }}">加载中...</loading>
+</view>

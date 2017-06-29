@@ -1,0 +1,41 @@
+<!-- 可用组件：https://mp.weixin.qq.com/debug/wxadoc/dev/component/ -->
+<import src="../components/list-loading/list-loading"/>
+<view class="container">
+		<view class="horizontal" style="overflow-y:auto; padding-bottom:30rpx;">
+			<template name="liveitem">
+				<view class="fristBox" id="{{item.type}}">
+					<!-- 回播 -->
+					<navigator wx:if="{{item.type == 1}}" url="/pages/audioDetail/index?vodId={{item.vodId}}&userId={{item.userId}}">
+						<image   mode="aspectFit" wx:if="{{item.surfaceImg ==''}}" src="/images/pic_home_morenfengmian@2x.png" ></image>
+						<image style="height:204rpx; width:204rpx"   mode="aspectFit" wx:else src="{{item.surfaceImg}}"  binderror="handleImgError"   data-errorimg="{{index}}"></image>
+						<!-- <image  src="{{item.surfaceImg}}" ></image> -->
+						<view class="picdetail">
+							<view class='thisicon'></view>
+							<text class="thisfnt">{{item.title}}</text>
+						</view>
+					</navigator>
+					<!-- 直播 -->
+					<navigator wx:else  url="/pages/audioLiveDetail/index?vodId={{item.vodId}}&userId={{item.userId}}">
+						<image   mode="aspectFit" wx:if="{{item.surfaceImg ==''}}" src="/images/pic_home_morenfengmian@2x.png" ></image>
+						<image style="height:204rpx; width:204rpx"   mode="aspectFit" wx:else src="{{item.surfaceImg}}"  binderror="handleImgError"   data-errorimg="{{index}}"></image>
+						<!-- <image  src="{{item.surfaceImg}}" ></image> -->
+						<view class="picdetail">
+							<view class='thisicon'></view>
+							<text class="thisfnt">{{item.title}}</text>
+						</view>
+					</navigator>
+				</view>
+			</template>
+		</view>
+	<scroll-view scroll-y="true" class="list" bindscrolltolower="handleLoadMore" style="height:100%">
+		<template is="liveitem" data="{{item , index}}" wx:key="index" wx:for="{{movies}}"></template>
+		<view class="nothing" wx:if="{{movies.length == 0 }}">
+			<view>
+				<image src="/images/pic_kongbai_2.png" ></image>
+				<view>暂无数据</view>
+			</view>
+		</view>
+		<!-- <template is="list-loading" data="{{ hasMore }}"></template> -->
+	</scroll-view>
+	<loading hidden="{{ !loading }}">加载中...</loading>
+</view>

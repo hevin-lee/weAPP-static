@@ -1,0 +1,14 @@
+<!-- 渲染普通的 组件 -->
+<template name="list-loading">
+  <view class="tips">
+    <view wx:if="{{ hasMore }}">
+      <view class="preloader-inner">
+        <view class="preloader-img"></view>
+      </view>
+      <text>玩了命的加载中...</text>
+    </view>
+    <view wx:else>
+      <text>没有更多内容了</text>
+    </view>
+  </view>
+</template>
